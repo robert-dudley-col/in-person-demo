@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const {MongoClient} = require('mongodb');
-var url = 'mongodb://locahost:27017/';
+var url = 'mongodb://localhost:27017/';
 var crypto = require('crypto-js');
 var UserFunctions = require('./functions');
 
@@ -36,3 +36,5 @@ router.post('/', async function(req,res){
         res.status(500).json({message:"Could not create user"});
     }
 })
+
+module.exports = router;
