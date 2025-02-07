@@ -3,10 +3,10 @@ const jwt = require('jsonwebtoken');
 var url = "mongodb://localhost:27017/";
 const {MongoClient} = require('mongodb');
 
-function generateAccessToken(userid)
+function generateAccessToken(email)
 {
     dotenv.config();
-    return jwt.sign({userid},process.env.TOKEN_SECRET,{expiresIn:'1800s'});
+    return jwt.sign({email},process.env.TOKEN_SECRET,{expiresIn:'1800s'});
 }
 
 function authenticateToken(authHeader)
@@ -22,7 +22,7 @@ function getIDFromAuth(authHeader)
     const token = authHeader && authHeader.split(' ')[1];
     if(jwt.verify(token, process.env.TOKEN_SECRET))
     {
-        return jwt.decode(token).userid;
+        return jwt.decode(token).email;
     }else{
         return false;
     }

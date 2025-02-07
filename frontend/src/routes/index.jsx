@@ -2,6 +2,7 @@ import {Button, Card, Col, Container, Row, Form} from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {useCookies} from 'react-cookie';
+import MainNavigation from '../components/MainNavigation';
 
 
 export default function Index()
@@ -36,6 +37,7 @@ export default function Index()
     {
         return(
             <Container>
+                <MainNavigation/>
                 <Row>
                     <Col md={4}>
                         <Card>

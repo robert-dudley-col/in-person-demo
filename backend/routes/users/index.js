@@ -4,7 +4,9 @@ const {MongoClient} = require('mongodb');
 var url = 'mongodb://localhost:27017/';
 var crypto = require('crypto-js');
 var UserFunctions = require('./functions');
+const {getMe} = require('./@me');
 
+router.get('/@me', (req,res) => getMe(req,res))
 
 router.post('/', async function(req,res){
     try{
