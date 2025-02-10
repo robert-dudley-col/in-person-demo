@@ -13,6 +13,11 @@ export default function Index()
     const [cookies] = useCookies(['token']);
     const [hotelSelected, setHotelSelected] = useState({});
 
+    const [single, setSingle] = useState(0);
+    const [twin, setTwin] = useState(0);
+    const [double, setDouble] = useState(0);
+    const [family, setFamily] = useState(0);
+
     useEffect(()=>{
         axios.get('http://localhost:3000/hotels?search='+search,{
             headers:{
@@ -34,6 +39,26 @@ export default function Index()
         setSearch(event.target.value);
     }
 
+    const BookRooms = (event) =>{
+        event.preventDefault();
+        var checkindate = event.target[0].value;
+        var checkoutdate = event.target[1].value;
+
+        axios.post('http://localhost:3000/bookings',{
+            checkin:checkindate,
+            checkout:checkoutdate,
+            single:single,
+            twin:twin,
+            double:double,
+            family:family,
+            hotel:hotelSelected._id
+        },{
+            headers:{
+                Authorization: 'Bearer '+cookies['token']
+            }
+        })
+    }
+
 
     if(hotelsLoaded)
     {
@@ -42,37 +67,61 @@ export default function Index()
                 <MainNavigation/>
                 <Row>
                     <Col md={4}>
-                        <Card>
-                            <Card.Body>
-                                <Card.Title>Hotel</Card.Title>
-                                <Card.Text style={{textAlign:'center'}}>
-                                    <Form>
-                                        <Form.Group className='mb-3'>
-                                            <Form.Label>Search For Hotel</Form.Label>
-                                            <Form.Control onChange={updateSearch} type='text' placeholder='Enter Search Term'/>
-                                        </Form.Group>
-                                        <Form.Group className='mb-3'>
-                                            <Form.Label>Select Hotel</Form.Label>
-                                            <Form.Select onChange={HotelSelected}>
-                                                {
-                                                    hotels.map((hotel)=>(
-                                                        <option id={hotel._id} key={hotel._id}>{hotel.location}</option>
-                                                    ))
-                                                }
-                                            </Form.Select>
-                                        </Form.Group>
-                                    </Form>
-    
-                                    <Card>
-                                        <Card.Img variant='top' src={hotelSelected.img}/>
-                                        <Card.Body>
-                                            <Card.Title>{hotelSelected.location}</Card.Title>
-                                            <Card.Text>{hotelSelected.description}</Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
+                        <Row className='mb-3'>
+                            <Card>
+                                <Card.Body>
+                                    <Card.Title>Hotel</Card.Title>
+                                    <Card.Text style={{textAlign:'center'}}>
+                                        <Form>
+                                            <Form.Group className='mb-3'>
+                                                <Form.Label>Search For Hotel</Form.Label>
+                                                <Form.Control onChange={updateSearch} type='text' placeholder='Enter Search Term'/>
+                                            </Form.Group>
+                                            <Form.Group className='mb-3'>
+                                                <Form.Label>Select Hotel</Form.Label>
+                                                <Form.Select onChange={HotelSelected}>
+                                                    {
+                                                        hotels.map((hotel)=>(
+                                                            <option id={hotel._id} key={hotel._id}>{hotel.location}</option>
+                                                        ))
+                                                    }
+                                                </Form.Select>
+                                            </Form.Group>
+                                        </Form>
+        
+                                        <Card>
+                                            <Card.Img variant='top' src={hotelSelected.img}/>
+                                            <Card.Body>
+                                                <Card.Title>{hotelSelected.location}</Card.Title>
+                                                <Card.Text>{hotelSelected.description}</Card.Text>
+                                            </Card.Body>
+                                        </Card>
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Row>
+                        <Row className='mb-3'>
+                            <Card >
+                                <Card.Body>
+                                    <Card.Title>Dates</Card.Title>
+                                    <Card.Text style={{textAlign:'center'}}>
+                                        <Form onSubmit={BookRooms}>
+                                            <Form.Group className='mb-3'>
+                                                <Form.Label>Check in Date</Form.Label>
+                                                <Form.Control type='date'/>
+                                            </Form.Group>
+                                            <Form.Group className='mb-3'>
+                                                <Form.Label>Check out Date</Form.Label>
+                                                <Form.Control type='date'/>
+                                            </Form.Group>
+                                            <Button type='submit'>
+                                                Submit
+                                            </Button>
+                                        </Form>
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Row>
                     </Col>
                     <Col md={8}>
                     <Card>
@@ -93,13 +142,13 @@ export default function Index()
                                                     <Form.Group controlId="formNumberInput">
                                                         <Form.Label>Number of Rooms Required</Form.Label>
                                                         <InputGroup>
-                                                            <Button variant="outline-secondary">-</Button>
+                                                            <Button variant="outline-secondary" onClick={()=>setSingle(single-1)}>-</Button>
                                                             <Form.Control
                                                                 type="number"
-                                                                value={0}
-                                                                onChange={(e) => setValue(parseInt(e.target.value, 10))}
+                                                                value={single}
+                                                                min={0}
                                                             />
-                                                            <Button variant="outline-secondary">+</Button>
+                                                            <Button variant="outline-secondary" onClick={()=>setSingle(single+1)}>+</Button>
                                                         </InputGroup>
                                                     </Form.Group>
                                                 </Form>
@@ -123,13 +172,13 @@ export default function Index()
                                                     <Form.Group controlId="formNumberInput">
                                                         <Form.Label>Number of Rooms Required</Form.Label>
                                                         <InputGroup>
-                                                            <Button variant="outline-secondary">-</Button>
+                                                            <Button variant="outline-secondary" onClick={()=>setTwin(twin-1)}>-</Button>
                                                             <Form.Control
                                                                 type="number"
-                                                                value={0}
-                                                                onChange={(e) => setValue(parseInt(e.target.value, 10))}
+                                                                value={twin}
+                                                                min={0}
                                                             />
-                                                            <Button variant="outline-secondary">+</Button>
+                                                            <Button variant="outline-secondary"onClick={()=>setTwin(twin+1)}>+</Button>
                                                         </InputGroup>
                                                     </Form.Group>
                                                 </Form>
@@ -153,13 +202,13 @@ export default function Index()
                                                     <Form.Group controlId="formNumberInput">
                                                         <Form.Label>Number of Rooms Required</Form.Label>
                                                         <InputGroup>
-                                                            <Button variant="outline-secondary">-</Button>
+                                                            <Button variant="outline-secondary" onClick={()=>setDouble(double-1)}>-</Button>
                                                             <Form.Control
                                                                 type="number"
-                                                                value={0}
-                                                                onChange={(e) => setValue(parseInt(e.target.value, 10))}
+                                                                value={double}
+                                                                min={0}
                                                             />
-                                                            <Button variant="outline-secondary">+</Button>
+                                                            <Button variant="outline-secondary" onClick={()=>setDouble(double+1)}>+</Button>
                                                         </InputGroup>
                                                     </Form.Group>
                                                 </Form>
@@ -183,13 +232,13 @@ export default function Index()
                                                     <Form.Group controlId="formNumberInput">
                                                         <Form.Label>Number of Rooms Required</Form.Label>
                                                         <InputGroup>
-                                                            <Button variant="outline-secondary" >-</Button>
+                                                            <Button variant="outline-secondary" onClick={()=>setFamily(family-1)}>-</Button>
                                                             <Form.Control
                                                                 type="number"
-                                                                value={0}
-                                                                onChange={(e) => setValue(parseInt(e.target.value, 10))}
+                                                                value={family}
+                                                                min={0}
                                                             />
-                                                            <Button variant="outline-secondary">+</Button>
+                                                            <Button variant="outline-secondary" onClick={()=>setFamily(family+1)}>+</Button>
                                                         </InputGroup>
                                                     </Form.Group>
                                                 </Form>
