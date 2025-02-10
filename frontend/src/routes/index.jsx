@@ -1,4 +1,4 @@
-import {Button, Card, Col, Container, Row, Form} from 'react-bootstrap';
+import {Button, Card, Col, Container, Row, Form, InputGroup} from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {useCookies} from 'react-cookie';
@@ -75,12 +75,128 @@ export default function Index()
                         </Card>
                     </Col>
                     <Col md={8}>
-                        <Card>
+                    <Card>
                             <Card.Body>
-                                <Card.Title>Register</Card.Title>
-                                <Card.Text style={{textAlign:'center'}}>
-                                    <Button href='/register'>Register</Button>
-                                </Card.Text>
+                                <Card.Title>Rooms</Card.Title>
+                                <Card className="mb-3">
+                                    <Card.Body>
+                                        <Row>
+                                            <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}} >
+                                                <Card.Img src="https://a36c2e13a78ae1256a2f-1dc878dead8ec78a84e429cdf4c9df00.ssl.cf1.rackcdn.com/u/park-hotel-hong-kong/room/Superior-Single-Room_mid.jpg" />
+                                            </Col>
+                                            <Col>
+                                                <Card.Title>Single Room</Card.Title>
+                                                <Card.Text>
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea alias aliquid, iusto iure doloribus tenetur error perferendis, debitis, fugiat rerum at laboriosam a? Vero itaque inventore quisquam ut dolore officia unde placeat sint, odio eum nam veritatis consectetur obcaecati doloribus, repellat consequatur aut, odit blanditiis molestias quae quo?
+                                                </Card.Text>
+                                                <Form>
+                                                    <Form.Group controlId="formNumberInput">
+                                                        <Form.Label>Number of Rooms Required</Form.Label>
+                                                        <InputGroup>
+                                                            <Button variant="outline-secondary">-</Button>
+                                                            <Form.Control
+                                                                type="number"
+                                                                value={0}
+                                                                onChange={(e) => setValue(parseInt(e.target.value, 10))}
+                                                            />
+                                                            <Button variant="outline-secondary">+</Button>
+                                                        </InputGroup>
+                                                    </Form.Group>
+                                                </Form>
+                                            </Col>
+                                        </Row>
+                                    </Card.Body>
+                                </Card>
+
+                                <Card className="mb-3">
+                                    <Card.Body>
+                                        <Row>
+                                            <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                                <Card.Img src="https://www.alphahoteleasterncreek.com.au/wp-content/uploads/2018/01/Alpha-Hotel-Eastern-Creekn-Twin-Hotel-Room-min.jpg" />
+                                            </Col>
+                                            <Col>
+                                                <Card.Title>Twin Room</Card.Title>
+                                                <Card.Text>
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, maxime amet accusantium eligendi deleniti blanditiis eum, impedit velit reiciendis ad, nemo est nesciunt officiis. Vel cum facilis soluta sed recusandae.
+                                                </Card.Text>
+                                                <Form>
+                                                    <Form.Group controlId="formNumberInput">
+                                                        <Form.Label>Number of Rooms Required</Form.Label>
+                                                        <InputGroup>
+                                                            <Button variant="outline-secondary">-</Button>
+                                                            <Form.Control
+                                                                type="number"
+                                                                value={0}
+                                                                onChange={(e) => setValue(parseInt(e.target.value, 10))}
+                                                            />
+                                                            <Button variant="outline-secondary">+</Button>
+                                                        </InputGroup>
+                                                    </Form.Group>
+                                                </Form>
+                                            </Col>
+                                        </Row>
+                                    </Card.Body>
+                                </Card>
+
+                                <Card className="mb-3">
+                                    <Card.Body>
+                                        <Row>
+                                            <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                                <Card.Img src="https://cdn.traveltripper.io/site-assets/512_855_12327/media/2018-02-27-075849/large_superior-double-2.jpg" />
+                                            </Col>
+                                            <Col>
+                                                <Card.Title>Double Room</Card.Title>
+                                                <Card.Text>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam consequuntur obcaecati dignissimos omnis, maxime vel architecto veritatis placeat, pariatur rem tempore dolorum nisi eum ipsa necessitatibus ratione doloribus cupiditate fugiat harum, adipisci quos veniam at iste repudiandae. Alias quo, corporis esse laborum dolore blanditiis numquam dignissimos. Dignissimos facere temporibus nostrum?
+                                                </Card.Text>
+                                                <Form>
+                                                    <Form.Group controlId="formNumberInput">
+                                                        <Form.Label>Number of Rooms Required</Form.Label>
+                                                        <InputGroup>
+                                                            <Button variant="outline-secondary">-</Button>
+                                                            <Form.Control
+                                                                type="number"
+                                                                value={0}
+                                                                onChange={(e) => setValue(parseInt(e.target.value, 10))}
+                                                            />
+                                                            <Button variant="outline-secondary">+</Button>
+                                                        </InputGroup>
+                                                    </Form.Group>
+                                                </Form>
+                                            </Col>
+                                        </Row>
+                                    </Card.Body>
+                                </Card>
+
+                                <Card className="mb-3">
+                                    <Card.Body>
+                                        <Row>
+                                            <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                                <Card.Img src="https://www.hillgrovehotel.com/wp-content/uploads/2023/07/Family-Room-Bunk-Beds-Accessories-scaled.jpg" />
+                                            </Col>
+                                            <Col>
+                                                <Card.Title>Family Room</Card.Title>
+                                                <Card.Text>
+                                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore minima iure quam alias assumenda laboriosam eveniet odio ipsam ut ipsum, eligendi dicta? Quod beatae rem numquam adipisci expedita reprehenderit modi hic animi nobis?
+                                                </Card.Text>
+                                                <Form>
+                                                    <Form.Group controlId="formNumberInput">
+                                                        <Form.Label>Number of Rooms Required</Form.Label>
+                                                        <InputGroup>
+                                                            <Button variant="outline-secondary" >-</Button>
+                                                            <Form.Control
+                                                                type="number"
+                                                                value={0}
+                                                                onChange={(e) => setValue(parseInt(e.target.value, 10))}
+                                                            />
+                                                            <Button variant="outline-secondary">+</Button>
+                                                        </InputGroup>
+                                                    </Form.Group>
+                                                </Form>
+                                            </Col>
+                                        </Row>
+                                    </Card.Body>
+                                </Card>
                             </Card.Body>
                         </Card>
                     </Col>
