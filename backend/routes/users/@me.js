@@ -1,19 +1,19 @@
 const {MongoClient} = require('mongodb');
 var url = "mongodb://localhost:27017/";
-const {authenticateToken, getIDFromAuth} = require('../auth/functions');
+const {authenticateToken, getEmailFromAuth} = require('../auth/functions');
 
 async function getMe(req,res) {
     try{
         var token = req.headers['authorization'];
         if(authenticateToken(token))
         {
-            var email = getIDFromAuth(token);
+            var email = getEmailFromAuth(token);
             var client = new MongoClient(url);
             var database = client.db('hotel');
             var collection = database.collection('users');
             var me = await collection.findOne({email});
             delete me.password;
-            
+
             res.json(me)
         }else{
             res.status(403).json({

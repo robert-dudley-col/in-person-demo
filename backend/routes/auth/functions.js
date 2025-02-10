@@ -16,7 +16,7 @@ function authenticateToken(authHeader)
     return jwt.verify(token, process.env.TOKEN_SECRET);
 }
 
-function getIDFromAuth(authHeader)
+function getEmailFromAuth(authHeader)
 {
     dotenv.config();
     const token = authHeader && authHeader.split(' ')[1];
@@ -28,8 +28,26 @@ function getIDFromAuth(authHeader)
     }
 }
 
+async function getIDFromAuth(authHeader)
+{
+    dotenv.config();
+    const token = authHeader && authHeader.split(' ')[1];
+    if(jwt.verify(token, process.env.TOKEN_SECRET))
+    {
+        var email =  jwt.decode(token).email;
+        var client = new MongoClient(url);
+        var database = client.db('hotel');
+        var collection = database.collection('users');
+        var user = await collection.findOne({email});
+        return user._id;
+    }else{
+        return false;
+    }
+}
+
 module.exports = {
-    getIDFromAuth,
+    getEmailFromAuth,
     authenticateToken,
-    generateAccessToken
+    generateAccessToken,
+    getIDFromAuth
 }
