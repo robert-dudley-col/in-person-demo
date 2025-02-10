@@ -11,9 +11,9 @@ async function getMe(req,res) {
             var client = new MongoClient(url);
             var database = client.db('hotel');
             var collection = database.collection('users');
-            var me = collection.findOne({email});
+            var me = await collection.findOne({email});
             delete me.password;
-
+            
             res.json(me)
         }else{
             res.status(403).json({

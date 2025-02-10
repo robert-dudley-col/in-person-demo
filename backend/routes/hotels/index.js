@@ -10,12 +10,26 @@ router.get('/', async function(req,res){
 
         if(authenticateToken(token))
         {
+            var search = req.query.search;
+
+            console.log(search);
             var client = new MongoClient(url);
             var database = client.db('hotel');
             var collection = database.collection('hotels');
 
-            var hotels = await collection.find().toArray();
-
+            // || is an OR
+            // && 
+            if(search=='' || search==undefined)
+            {
+                var hotels = await collection.find().toArray();
+            }else{
+                var hotels = await collection.find({
+                    '$or':[
+                        {location:{'$regex':search,'$options':'i'}},
+                        {description:{'$regex':search,'$options':'i'}}
+                    ]
+                }).toArray();
+            }
             res.json({hotels});
         }else{
             res.status(403).json({message:"You are not signed in"});

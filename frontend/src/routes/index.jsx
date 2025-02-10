@@ -14,22 +14,24 @@ export default function Index()
     const [hotelSelected, setHotelSelected] = useState({});
 
     useEffect(()=>{
-        if(search === "")
-        {
-            axios.get('http://localhost:3000/hotels/',{
-                headers:{
-                    Authorization: 'Bearer '+cookies['token']
-                }
-            }).then((res)=>{
-                setHotelsLoaded(true)
-                setHotels(res.data.hotels)
-                setHotelSelected(res.data.hotels[0])
-            })
-        }
+        axios.get('http://localhost:3000/hotels?search='+search,{
+            headers:{
+                Authorization: 'Bearer '+cookies['token']
+            }
+        }).then((res)=>{
+            setHotelsLoaded(true)
+            setHotels(res.data.hotels)
+            setHotelSelected(res.data.hotels[0])
+        })
     },[search])
 
     const HotelSelected = (event) =>{
         setHotelSelected(hotels[event.target.selectedIndex])
+    }
+
+    const updateSearch = (event) =>{
+        console.log(event.target.value);
+        setSearch(event.target.value);
     }
 
 
@@ -47,7 +49,7 @@ export default function Index()
                                     <Form>
                                         <Form.Group className='mb-3'>
                                             <Form.Label>Search For Hotel</Form.Label>
-                                            <Form.Control />
+                                            <Form.Control onChange={updateSearch} type='text' placeholder='Enter Search Term'/>
                                         </Form.Group>
                                         <Form.Group className='mb-3'>
                                             <Form.Label>Select Hotel</Form.Label>
