@@ -8,6 +8,7 @@ import Index from './routes';
 import 'bootstrap/dist/css/bootstrap.css'
 import Login from './routes/login';
 import Register from './routes/register';
+import ViewBooking from './routes/bookings/id';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path:'/register',
     element:<Register/>
+  },
+  {
+    path:'/bookings/:bookingID',
+    element:<ViewBooking/>
   }
 ]);
 

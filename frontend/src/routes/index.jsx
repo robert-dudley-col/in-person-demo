@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {useCookies} from 'react-cookie';
 import MainNavigation from '../components/MainNavigation';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Index()
@@ -17,6 +18,7 @@ export default function Index()
     const [twin, setTwin] = useState(0);
     const [double, setDouble] = useState(0);
     const [family, setFamily] = useState(0);
+    const navigate = useNavigate();
 
     useEffect(()=>{
         axios.get('http://localhost:3000/hotels?search='+search,{
@@ -56,6 +58,8 @@ export default function Index()
             headers:{
                 Authorization: 'Bearer '+cookies['token']
             }
+        }).then((res)=>{
+            navigate('/bookings/'+res.data.booking)
         })
     }
 
