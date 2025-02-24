@@ -32,7 +32,8 @@ export default function MainNavigation(){
         return(
             <Navbar className="bg-body-tertiary">
                 <Container>
-                    <Navbar.Brand href="#home">Navbar with text</Navbar.Brand>
+                    <Navbar.Brand href="/">Hotels</Navbar.Brand>
+                    <Nav.Link href='/bookings'>View Bookings</Nav.Link>
                     <Navbar.Toggle />
                     <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>

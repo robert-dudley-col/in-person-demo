@@ -5,6 +5,29 @@ var url = 'mongodb://localhost:27017/';
 var AuthFunctions = require('../auth/functions');
 var mongo = require('mongodb');
 
+router.get('/@me', async function(req,res){
+    try {
+        var token = req.headers['authorization'];
+        if(AuthFunctions.authenticateToken(token))
+        {
+            var user = await AuthFunctions.getIDFromAuth(token);
+            var client = new MongoClient(url);
+            var database = client.db('hotel');
+            var collection = database.collection('bookings');
+            var bookings = await collection.find({
+                user:user
+            }).toArray();
+
+            res.json(bookings);
+        }else{
+            res.status(403).json({message:"You are not authorised"})
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message:"An error occrored"});
+    }
+})
+
 router.post('/',async function(req,res){
     try{
         var token = req.headers['authorization'];

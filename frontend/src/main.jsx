@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import Login from './routes/login';
 import Register from './routes/register';
 import ViewBooking from './routes/bookings/id';
+import ViewBookings from './routes/bookings';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path:'/bookings/:bookingID',
     element:<ViewBooking/>
+  },
+  {
+    path:'/bookings',
+    element:<ViewBookings/>
   }
 ]);
 

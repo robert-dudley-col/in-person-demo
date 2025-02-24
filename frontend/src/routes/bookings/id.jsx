@@ -32,7 +32,7 @@ export default function ViewBooking()
                 <Container>
                     <Row>
                         <Col>
-                            <p>{booking.hotel.location}</p>
+                            <p>You're booked in at: {booking.hotel.location}</p>
                         </Col>
                     </Row>
                 </Container>
