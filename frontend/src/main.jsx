@@ -11,6 +11,7 @@ import Register from './routes/register';
 import ViewBooking from './routes/bookings/id';
 import ViewBookings from './routes/bookings';
 import BookingsHotels from './routes/bookings/hotel';
+import BookingsAtHotel from './routes/bookings/bookings_at_hotel';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path:'/bookings/hotel',
     element:<BookingsHotels/>
+  },
+  {
+    path:'/bookings/hotel/:id',
+    element:<BookingsAtHotel/>
   }
 ]);
 
