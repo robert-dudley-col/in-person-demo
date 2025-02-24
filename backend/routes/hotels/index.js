@@ -17,8 +17,6 @@ router.get('/', async function(req,res){
             var database = client.db('hotel');
             var collection = database.collection('hotels');
 
-            // || is an OR
-            // && 
             if(search=='' || search==undefined)
             {
                 var hotels = await collection.find().toArray();

@@ -34,6 +34,7 @@ export default function MainNavigation(){
                 <Container>
                     <Navbar.Brand href="/">Hotels</Navbar.Brand>
                     <Nav.Link href='/bookings'>View Bookings</Nav.Link>
+                    <Nav.Link href='/bookings/hotel'>View Bookings For A Hotel</Nav.Link>
                     <Navbar.Toggle />
                     <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>

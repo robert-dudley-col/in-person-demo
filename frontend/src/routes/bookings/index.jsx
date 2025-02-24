@@ -43,7 +43,7 @@ export default function ViewBookings()
                                             {
                                                 bookings.map((booking)=>(
                                                     <tr key={booking._id}>
-                                                        <td>{booking.hotel}</td>
+                                                        <td>{booking.hotel.location}</td>
                                                         <td>{booking.checkin}</td>
                                                         <td>{booking.checkout}</td>
                                                         <td><Button href={'/bookings/'+booking._id}>View Booking</Button></td>

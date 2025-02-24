@@ -5,6 +5,37 @@ var url = 'mongodb://localhost:27017/';
 var AuthFunctions = require('../auth/functions');
 var mongo = require('mongodb');
 
+router.get('/hotel/:id', async function(req,res){
+    try{
+        var token = req.headers['authorization'];
+        if(AuthFunctions.authenticateToken(token))
+        {
+            var hotel = req.params.id;
+            var client = new MongoClient(url);
+            var database = client.db('hotel');
+
+            var bookings = await database.collection('bookings').find({
+                hotel:hotel
+            }).toArray();
+
+            await Promise.all(bookings.map(async (booking)=>{
+                var location = await database.collection('hotels').findOne({
+                    _id: new mongo.ObjectId(booking.hotel)
+                })
+                booking.hotel = location;
+            }))
+
+            res.json(bookings)
+        }else{
+            res.status(403).json({message:"You do not have permission"})
+        }
+    }catch(error)
+    {
+        console.log(error);
+        res.status(500).json({message:"uh oh! an error!"})
+    }
+})
+
 router.get('/@me', async function(req,res){
     try {
         var token = req.headers['authorization'];
@@ -17,6 +48,13 @@ router.get('/@me', async function(req,res){
             var bookings = await collection.find({
                 user:user
             }).toArray();
+
+            await Promise.all(bookings.map(async (booking)=>{
+                var location = await database.collection('hotels').findOne({
+                    _id: new mongo.ObjectId(booking.hotel)
+                })
+                booking.hotel = location;
+            }))
 
             res.json(bookings);
         }else{
