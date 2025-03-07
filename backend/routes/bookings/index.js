@@ -71,6 +71,7 @@ router.post('/',async function(req,res){
         var token = req.headers['authorization'];
         if(AuthFunctions.authenticateToken(token))
         {
+            console.log(req.body)
             var user = await AuthFunctions.getIDFromAuth(token);
             var hotel = req.body.hotel;
             var checkin = req.body.checkin;

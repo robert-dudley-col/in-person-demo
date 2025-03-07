@@ -4,6 +4,7 @@ import axios from 'axios';
 import {useCookies} from 'react-cookie';
 import MainNavigation from '../components/MainNavigation';
 import { useNavigate } from 'react-router-dom';
+import CookieConsent from 'react-cookie-consent';
 
 
 export default function Index()
@@ -254,6 +255,12 @@ export default function Index()
                         </Card>
                     </Col>
                 </Row>
+                <CookieConsent
+                    enableDeclineButton
+                    onDecline={()=>{
+                        window.location.href = 'https://google.co.uk'
+                    }}
+                >This website uses cookies to store data</CookieConsent>
             </Container>
         )
     }
